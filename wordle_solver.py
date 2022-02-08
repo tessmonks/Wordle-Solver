@@ -115,7 +115,7 @@ class Wordle:
         rule_str = ''.join(rule.code for rule in rules)
         return rules, matched_counts, rule_str
     
-    def rules(self, rule_codes, guess):
+    def parse_rules(self, rule_codes, guess):
         rules = []
         matched_counts = {}
         for i, letter in enumerate(guess):
@@ -143,7 +143,7 @@ class Wordle:
             guess, k = self.choose_guess() if j else init
             j += 1
             rule_codes = self.rules_input(guess)
-            rules, matched_counts = self.rules(rule_codes,guess)
+            rules, matched_counts = self.parse_rules(rule_codes,guess)
             self.apply_rules(rules, matched_counts)
             
             if len(self.words) == 0:
