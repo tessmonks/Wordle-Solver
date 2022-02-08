@@ -32,7 +32,7 @@ overall_probs = sorted(word_probs, key = lambda x: x[1], reverse = True)
 # randomly choose first word from 50 most probable
 first_word = random.choice(overall_probs[:50])[0]
 
-
+st.markdown(str(first_word))
 class Guess:
     def __init__(self, letter, i=None):
         word_bank = [word.upper() for word in words.words() if len(word)==5]
@@ -148,6 +148,7 @@ class Wordle:
                 break
             if guess in self.words:
                 del self.words[self.words.index(guess)]
+                st.markdown(str(guess))
         st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
 wordle = Wordle()
 wordle.play()
