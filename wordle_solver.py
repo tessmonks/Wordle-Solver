@@ -1,9 +1,7 @@
-import streamlit as st
 import random
 from collections import defaultdict
 from nltk.corpus import words
 
-st.header('Wordle Solver')
 words_list = [word.lower() for word in words.words() if len(word) == 5]
 
 word_string = ''.join(words_list)
@@ -135,7 +133,7 @@ class Wordle:
 
 
     def get_rules_input(self, test_word):
-        rule_codes = st.text_input("Input the colors for test word "+ str(test_word))
+        rule_codes = input("Input the colors for test word "+ str(test_word))
         return rule_codes
 
 
@@ -150,11 +148,11 @@ class Wordle:
             self.apply_rules(rules, matched_counts)
 
             if len(self.words) == 0:
-                st.write('error')
+                print('error')
             elif len(self.words) == 1: 
                 break
             if test_word in self.words:
                 del self.words[self.words.index(test_word)]
-        st.write('the final word is: ' + str(test_word) +', found in ' + str(j)+' attempts.')
+        print('the final word is: ' + str(test_word) +', found in ' + str(j)+' attempts.')
 wordle = Wordle()
 wordle.interactive()
