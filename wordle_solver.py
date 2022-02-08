@@ -143,10 +143,10 @@ class Wordle:
         j = 0
         init = first_word, self.words.index(first_word)
         while len(self.words) > 1:
+            test_word, k = self.get_test_word() if j else init
+            j += 1
+            rule_codes = self.get_rules_input(test_word)
             if rule_codes is not None:
-                test_word, k = self.get_test_word() if j else init
-                j += 1
-                rule_codes = self.get_rules_input(test_word)
                 rules, matched_counts = self.parse_rule_codes(rule_codes,test_word)
                 self.apply_rules(rules, matched_counts)
 
