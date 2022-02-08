@@ -1,6 +1,5 @@
 import random
 from nltk.corpus import words
-import sys
 import streamlit as st
 st.header("Wordle Solver")
 
@@ -151,13 +150,13 @@ class Wordle:
             self.apply_rules(rules, matched_counts)
 
             if len(self.words) == 0:
-                sys.exit('I think you made a mistake: no words match this set'
+                st.markdown('I think you made a mistake: no words match this set'
                          ' of rules.')
             elif len(self.words) == 1:
                 break
             if test_word in self.words:
                 del self.words[self.words.index(test_word)]
-        st.header('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
+        st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
 wordle = Wordle()
 wordle.interactive()
         
