@@ -2,7 +2,11 @@ from nltk.corpus import words
 import sys
 import random
 from collections import defaultdict
-import re
+import re 
+import streamlit as st
+
+
+st.title('Wordle Solver')
 
 words_list = [word.lower() for word in words.words() if len(word) == 5]
 # filter for list of words that do not repeat letters t have max likelihood
@@ -91,7 +95,7 @@ class Wordle:
     def test_word(self, guess):
         
         target = list(self.target_word)
-        matched_letters = defaultdict(int)
+        matched_counts = defaultdict(int)
         rules = [None] * self.word_length
         
         # check the letters in guess against the target word
@@ -136,7 +140,7 @@ class Wordle:
         return self.words[k], k
     
     def rules_input(self, guess):
-        return input(f'{guess}')
+        return input(f'Try "{guess}": ')
     
     def play(self):
         j = 0
@@ -156,8 +160,12 @@ class Wordle:
                 del self.words[self.words.index(guess)]
         print(f'The word is {self.words[0]}, found in {j} attempts.')
         
-        
-        
 if __name__ == '__main__':
     wordle = Wordle()
-    wordle.interactive()
+    wordle.play()
+
+
+
+
+
+
