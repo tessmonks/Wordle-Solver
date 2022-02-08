@@ -1,4 +1,5 @@
-from nltk.corpus import words
+import nltk.corpus
+nltk.download(words)
 import sys
 import random
 from collections import defaultdict
