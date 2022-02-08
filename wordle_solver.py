@@ -137,13 +137,14 @@ class Wordle:
         return self.words[k], k
     
     def rules_input(self, guess):
-        return input(f'{guess}')
+        return guess = st.text_input("Input Colors")
     
     def play(self):
         j = 0
         init = first_word, self.words.index(first_word)
         while len(self.words) > 1:
             guess, k = self.choose_guess() if j else init
+            st.header(guess)
             j += 1
             rule_codes = self.rules_input(guess)
             rules, matched_counts = self.rules(rule_codes,guess)
