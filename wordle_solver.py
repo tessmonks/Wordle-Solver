@@ -137,7 +137,8 @@ class Wordle:
         return self.words[k], k
     
     def rules_input(self, guess):
-        return guess = st.text_input("Input Colors")
+        guess = st.text_input("Input Colors")
+        return guess 
     
     def play(self):
         j = 0
