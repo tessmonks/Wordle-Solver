@@ -143,18 +143,19 @@ class Wordle:
         j = 0
         init = first_word, self.words.index(first_word)
         while len(self.words) > 1:
-            test_word, k = self.get_test_word() if j else init
-            j += 1
-            rule_codes = self.get_rules_input(test_word)
-            rules, matched_counts = self.parse_rule_codes(rule_codes,test_word)
-            self.apply_rules(rules, matched_counts)
+            if rule_codes is not None:
+                test_word, k = self.get_test_word() if j else init
+                j += 1
+                rule_codes = self.get_rules_input(test_word)
+                rules, matched_counts = self.parse_rule_codes(rule_codes,test_word)
+                self.apply_rules(rules, matched_counts)
 
-            if len(self.words) == 0:
-                st.markdown('error')
-            elif len(self.words) == 1:
-                break
-            if test_word in self.words:
-                del self.words[self.words.index(test_word)]
+                if len(self.words) == 0:
+                    st.markdown('error')
+                elif len(self.words) == 1:
+                    break
+                if test_word in self.words:
+                    del self.words[self.words.index(test_word)]
         st.markdown('the final word is: ' + str(test_word) +', found in ' + str(j)+' attempts.')
 wordle = Wordle()
 wordle.interactive()
