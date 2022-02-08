@@ -37,14 +37,14 @@ class Rule:
 
 
 class RuleMatch(Rule):
-    code = '='
+    code = 'G'
     def apply(self, words, matched_counts):
         words = [word for word in words if word[self.i] == self.letter]
         return words
 
 
 class RuleContainsElsewhere(Rule):
-    code = '+'
+    code = 'Y'
     def apply(self, words, matched_counts):
         # Only keep words which contain letter (not in position i, or else
         # it would be an exact match (= not +) and which don't contain the
@@ -56,7 +56,7 @@ class RuleContainsElsewhere(Rule):
 
 
 class RuleExcludedLetter(Rule):
-    code = '-'
+    code = 'B'
     def apply(self, words, matched_counts):
         _words = []
         for word in words:
@@ -72,7 +72,7 @@ class RuleExcludedLetter(Rule):
         words = _words[:]
         return words
 
-RuleCls = {'=': RuleMatch, '+': RuleContainsElsewhere, '-': RuleExcludedLetter}
+RuleCls = {'G': RuleMatch, 'Y': RuleContainsElsewhere, 'B': RuleExcludedLetter}
 
 
 class Wordle:
@@ -120,7 +120,7 @@ class Wordle:
         matched_counts = {}
         for i, letter in enumerate(test_word):
             rules.append(RuleCls[rule_codes[i]](letter, i))
-            if rule_codes[i] in '+=':
+            if rule_codes[i] in 'GY':
                 matched_counts[letter] += 1
         return rules, matched_counts
 
