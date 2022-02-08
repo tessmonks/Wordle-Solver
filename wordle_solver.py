@@ -1,6 +1,6 @@
 import random
 import streamlit as st
-
+from collections import defaultdict
 
 st.title('Wordle Solver')
 
