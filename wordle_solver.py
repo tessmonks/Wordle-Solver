@@ -153,4 +153,3 @@ init = first_word, Wordle.words.index(first_word)
             del Wordle.words[Wordle.words.index(guess)]
     st.header('The word is '+ str(Wordle.words[0]) +', found in ' + str(j) +' attempts.')
         
-
