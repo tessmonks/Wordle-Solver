@@ -83,7 +83,7 @@ class Wordle:
         if target_word:
             self.word_length = len(target_word)
 
-        self.words = [word.lower() for word in words.words() if len(word) == 5]
+        self.words = [word.lower() for word in words.words() if len(word) == self.word_length]
     
     def test_word(self, guess):
         
