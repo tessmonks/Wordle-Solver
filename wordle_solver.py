@@ -33,6 +33,7 @@ overall_probs = sorted(word_probs, key = lambda x: x[1], reverse = True)
 first_word = random.choice(overall_probs[:50])[0]
 
 st.markdown(str(first_word))
+
 class Guess:
     def __init__(self, letter, i=None):
         word_bank = [word.upper() for word in words.words() if len(word)==5]
@@ -141,7 +142,7 @@ class Wordle:
             rule_codes = self.rules_input(guess)
             rules, matched_counts = self.rules(rule_codes,guess)
             self.apply_rules(rules, matched_counts)
-
+            
             if len(self.words) == 0:
                 st.markdown('no match')
             elif len(self.words) == 1:
