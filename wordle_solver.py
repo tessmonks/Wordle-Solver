@@ -36,7 +36,7 @@ st.markdown(str(first_word))
 
 class Guess:
     def __init__(self, letter, i=None):
-        word_bank = [word.upper() for word in words.words() if len(word)==5]
+        word_bank = [word.lower() for word in words.words() if len(word) == 5]
         self.word_bank = word_bank
         self.letter, self.i = letter, i
     
@@ -60,16 +60,20 @@ class YellowLetter(Guess):
 class NoMatch(Guess):
     code = 'B'
     def apply(self, word_bank, matched_counts):
-        words = []
-        for word in word_bank:
-            # if the letter is not in the word at all
+        words_new = []
+        for word in words:
             if not matched_counts[self.letter] and self.letter in word:
+                # letter has not been matched anywhere in the word:
+                # don't include any words which have this letter.
                 continue
             if matched_counts[self.letter] > word.count(self.letter):
+                # letter has been matched n times: we can't include
+                # words that don't include it at least as many times.
                 continue
-            words.append(word)
+            words_new.append(word)
+        words = words_new[:]
         return words
-        
+    
 Rule = {'G': GreenLetter, 'Y': YellowLetter, 'B': NoMatch}
 
 
@@ -80,7 +84,7 @@ class Wordle:
         if target_word:
             self.word_length = len(target_word)
 
-        self.words = [word.strip() for word in words.words() if len(word)==word_length]
+        self.words = [word.lower() for word in words.words() if len(word) == 5]
     
     def test_word(self, guess):
         
