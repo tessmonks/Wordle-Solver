@@ -143,7 +143,8 @@ class Wordle:
             j += 1
             guess, k = init
             rule_codes = self.rules_input(guess)
-            if rule_codes != None:
+            if rule_codes = None:
+                st.markdown('no rules')
                 rules, matched_counts = self.parse_rules(rule_codes,guess)
                 self.apply_rules(rules, matched_counts)
         else:        
