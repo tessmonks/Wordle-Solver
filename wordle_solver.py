@@ -1,3 +1,4 @@
+import random
 import streamlit as st
 
 
@@ -33,6 +34,6 @@ for word in words_list:
 overall_probs = sorted(word_probs, key = lambda x: x[1], reverse = True)
 
 # randomly choose first word from 50 most probable
-first_word = overall_probs[20][0]
+first_word = random.choice(overall_probs[:20])[0]
 
-st.header("First word" + str(first_word))
+st.header("First word: " + str(first_word))
