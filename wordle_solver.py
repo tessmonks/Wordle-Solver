@@ -1,5 +1,6 @@
 import random
-from nltk.corpus import words
+import nltk
+nltk.download('words')
 import streamlit as st
 
 
