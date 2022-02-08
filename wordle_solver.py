@@ -114,9 +114,10 @@ class Wordle:
         matched_counts = {}
         for i, letter in enumerate(guess):
             rules.append(Rule[rule_codes[i]](letter, i))
-            if rule_codes[i] in 'YG':
+            if rule_codes[i] in 'GY':
                 matched_counts[letter] += 1
         return rules, matched_counts
+
     
     def apply_rules(self, rules, matched_counts):
         for rule in rules:
