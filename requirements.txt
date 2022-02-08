@@ -1,3 +1,2 @@
 streamlit
-collections
 nltk
