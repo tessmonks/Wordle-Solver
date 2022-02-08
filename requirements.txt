@@ -1,4 +1,4 @@
-ntlk.corpus
+nltk.corpus
 sys
 random
 collections
