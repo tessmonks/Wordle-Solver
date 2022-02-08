@@ -140,12 +140,14 @@ class Wordle:
         j = 0
         init = first_word, self.words.index(first_word)
         while len(self.words) > 1:
-            guess, k = self.choose_guess() if j > 1 else init
-            j += 1
-            rule_codes = self.rules_input(guess)
-            rules, matched_counts = self.parse_rules(rule_codes,guess)
-            self.apply_rules(rules, matched_counts)
-            
+            try:
+                guess, k = self.choose_guess() if j > 1 else init
+                j += 1
+                rule_codes = self.rules_input(guess)
+                rules, matched_counts = self.parse_rules(rule_codes,guess)
+                self.apply_rules(rules, matched_counts)
+            except:
+                st.text_input("Try the word: " + str(guess))
             if len(self.words) == 0:
                 st.markdown('no match')
             elif len(self.words) == 1:
