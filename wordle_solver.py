@@ -29,7 +29,7 @@ overall_probs = sorted(word_probs, key = lambda x: x[1], reverse = True)
 
 # randomly choose first word from 50 most probable
 FIRST_WORD = random.choice(overall_probs[:50])[0]
-
+st.markdown(str(FIRST_WORD))
 
 class Rule:
     def __init__(self, letter, i=None):
@@ -156,6 +156,7 @@ class Wordle:
                 break
             if test_word in self.words:
                 del self.words[self.words.index(test_word)]
+                st.markdown(str(test_word))
         st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
 wordle = Wordle()
 wordle.interactive()
