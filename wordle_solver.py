@@ -143,7 +143,7 @@ class Wordle:
         j = 0
         init = first_word, self.words.index(first_word)
         while len(self.words) > 1:
-            test_word, k = self.get_test_word() if j else init
+            test_word, k = self.get_test_word() if j >= 1 else init
             j += 1
             rule_codes = self.get_rules_input(test_word)
             if rule_codes:
