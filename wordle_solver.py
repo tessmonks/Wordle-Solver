@@ -1,15 +1,9 @@
 import random
+from nltk.corpus import words
 import streamlit as st
-from collections import defaultdict
-
-st.title('Wordle Solver')
 
 
-wordlist_name = 'common-5-words.txt'
-with open(wordlist_name) as fi:
-    
-    words_list = [word.strip() for word in fi]
-
+words_list = [word.lower() for word in words.words() if len(word) == 5]
 
 word_string = ''.join(words_list)
 alpha = 'abcdefghijklmnopqrstuvwxyz'
@@ -34,9 +28,8 @@ for word in words_list:
 overall_probs = sorted(word_probs, key = lambda x: x[1], reverse = True)
 
 # randomly choose first word from 50 most probable
-first_word = random.choice(overall_probs[:20])[0]
+first_word = random.choice(overall_probs[:50])[0]
 
-st.header("First word: " + str(first_word))
 
 class Guess:
     def __init__(self, letter, i=None):
@@ -84,15 +77,12 @@ class Wordle:
         if target_word:
             self.word_length = len(target_word)
 
-        wordlist_name = 'common-5-words.txt'
-        with open(wordlist_name) as fi:
-    
-            self.words = [word.strip() for word in fi]
+        self.words = [word.strip() for word in words.words() if len(word)==word_length]
     
     def test_word(self, guess):
         
         target = list(self.target_word)
-        matched_letters = defaultdict(int)
+        matched_letters = {}
         rules = [None] * self.word_length
         
         # check the letters in guess against the target word
@@ -121,7 +111,7 @@ class Wordle:
     
     def rules(self, rule_codes, guess):
         rules = []
-        matched_counts = defaultdict(int)
+        matched_counts = {}
         for i, letter in enumerate(guess):
             rules.append(Rule[rule_codes[i]](letter, i))
             if rule_codes[i] in '+=':
@@ -145,7 +135,6 @@ class Wordle:
         init = first_word, self.words.index(first_word)
         while len(self.words) > 1:
             guess, k = self.choose_guess() if j else init
-            st.header(guess)
             j += 1
             rule_codes = self.rules_input(guess)
             rules, matched_counts = self.rules(rule_codes,guess)
