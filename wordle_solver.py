@@ -148,14 +148,14 @@ class Wordle:
             self.apply_rules(rules, matched_counts)
         
         
-         if len(self.words) == 0:
-             st.markdown('no match')
-         elif len(self.words) == 1:
-             break
-         if guess in self.words:
-             del self.words[self.words.index(guess)]
-             st.markdown(str(guess))
-         st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
+        if len(self.words) == 0:
+            st.markdown('no match')
+        elif len(self.words) == 1:
+            break
+        if guess in self.words:
+            del self.words[self.words.index(guess)]
+            st.markdown(str(guess))
+        st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
 wordle = Wordle()
 wordle.play()
         
