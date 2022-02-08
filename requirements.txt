@@ -1,4 +1,4 @@
-nltk.corpus
+nltk
 random
 collections
 re
