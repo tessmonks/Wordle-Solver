@@ -135,8 +135,8 @@ class Wordle:
 
 
     def get_rules_input(self, test_word):
-        rule_codes = st.write(input("Input the colors for test word "+ str(test_word))
-        return rule_codes
+        st.text_input("Input the colors for test word "+ str(test_word), key = "rule_codes")
+        return st.session_state.rule_codes
 
 
     def interactive(self):
