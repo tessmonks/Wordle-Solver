@@ -150,5 +150,5 @@ class Wordle:
                 del self.words[self.words.index(guess)]
         st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
 wordle = Wordle()
-wordle.interactive()
+wordle.play()
         
