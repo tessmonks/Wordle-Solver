@@ -84,7 +84,10 @@ class Wordle:
         if target_word:
             self.word_length = len(target_word)
 
-        self.words = [word.strip() for word in words.words() if len(word)==word_length]
+        wordlist_name = 'common-5-words.txt'
+        with open(wordlist_name) as fi:
+    
+            self.words = [word.strip() for word in fi]
     
     def test_word(self, guess):
         
