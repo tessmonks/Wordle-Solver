@@ -33,33 +33,35 @@ overall_probs = sorted(word_probs, key = lambda x: x[1], reverse = True)
 first_word = random.choice(overall_probs[:50])[0]
 
 
-class Guess:
+
+class Rule:
     def __init__(self, letter, i=None):
-        word_bank = [word.lower() for word in words.words() if len(word) == 5]
-        self.word_bank = word_bank
         self.letter, self.i = letter, i
-    
-class GreenLetter(Guess):
-    # keep words from the word bank with letters matching in the position guessed
+
+
+class Green(Rule):
     code = 'G'
-    def apply(self, word_bank, matched_counts):
-        words = [word for word in word_bank if word[self.i] == self.letter]
+    def apply(self, words, matched_counts):
+        words = [word for word in words if word[self.i] == self.letter]
         return words
-    
-class YellowLetter(Guess):
+
+
+class Yellow(Rule):
     code = 'Y'
-    # keep words that contain the letter, but not in the position guessed
-    def apply(self, word_bank, matched_counts):
-        words = [word for word in word_bank if 
-                 self.letter in word and
-                word[self.i] != self.letter and 
-                matched_counts[self.letter] <= word.count(self.letter)]
+    def apply(self, words, matched_counts):
+        # Only keep words which contain letter (not in position i, or else
+        # it would be an exact match (= not +) and which don't contain the
+        # letter more often than the number of counted matches.
+        words = [word for word in words if self.letter in word
+                    and word[self.i] != self.letter
+                    and matched_counts[self.letter] <= word.count(self.letter)]
         return words
-    
-class NoMatch(Guess):
+
+
+class Black(Rule):
     code = 'B'
-    def apply(self, word_bank, matched_counts):
-        words_new = []
+    def apply(self, words, matched_counts):
+        _words = []
         for word in words:
             if not matched_counts[self.letter] and self.letter in word:
                 # letter has not been matched anywhere in the word:
@@ -69,11 +71,11 @@ class NoMatch(Guess):
                 # letter has been matched n times: we can't include
                 # words that don't include it at least as many times.
                 continue
-            words_new.append(word)
-        words = words_new[:]
+            _words.append(word)
+        words = _words[:]
         return words
-    
-Rule = {'G': GreenLetter, 'Y': YellowLetter, 'B': NoMatch}
+
+RuleCls = {'G': Green, 'Y': Yellow, 'B': Black}
 
 
 class Wordle:
@@ -94,11 +96,11 @@ class Wordle:
         # check the letters in guess against the target word
         for i, letter in enumerate(guess):
             if letter == target[i]:
-                rules[i] = GreenLetter(letter, i)
+                rules[i] = Green(letter, i)
                 target[i] = '*'
                 matched_counts[letter] += 1
             elif letter not in target:
-                rules[i] = NoMatch(letter, i)
+                rules[i] = Black(letter, i)
                 
         for i, letter in enumerate(guess):
             # check if letter is in word, just not in the current location
@@ -106,11 +108,11 @@ class Wordle:
                 continue
                 
             if letter in target:
-                rules[i] = YellowLetter(letter, i)
+                rules[i] = Yellow(letter, i)
                 target[target.index(letter)] = '*'
                 matched_counts[letter] += 1
             else:
-                rules[i] = NoMatch(letter, i)
+                rules[i] = Black(letter, i)
 
         rule_str = ''.join(rule.code for rule in rules)
         return rules, matched_counts, rule_str
@@ -119,7 +121,7 @@ class Wordle:
         rules = []
         matched_counts = {}
         for i, letter in enumerate(guess):
-            rules.append(Rule[rule_codes[i]](letter, i))
+            rules.append(RuleCls[rule_codes[i]](letter, i))
             if rule_codes[i] in 'YG':
                 matched_counts[letter] += 1
         return rules, matched_counts
