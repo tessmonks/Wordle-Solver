@@ -146,7 +146,7 @@ class Wordle:
             test_word, k = self.get_test_word() if j else init
             j += 1
             rule_codes = self.get_rules_input(test_word)
-            if rule_codes is not None:
+            if rule_codes:
                 rules, matched_counts = self.parse_rule_codes(rule_codes,test_word)
                 self.apply_rules(rules, matched_counts)
 
