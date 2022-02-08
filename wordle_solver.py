@@ -138,18 +138,18 @@ class Wordle:
     
 j = 0
 init = first_word, Wordle.words.index(first_word)
-    while len(Wordle.words) > 1:
-        guess, k = Wordle.choose_guess() if j else init
-        j += 1
-        rule_codes = Wordle.rules_input(guess)
-        rules, matched_counts = Wordle.rules(rule_codes,guess)
-        Wordle.apply_rules(rules, matched_counts)
+while len(Wordle.words) > 1:
+    guess, k = Wordle.choose_guess() if j else init
+    j += 1
+    rule_codes = Wordle.rules_input(guess)
+    rules, matched_counts = Wordle.rules(rule_codes,guess)
+    Wordle.apply_rules(rules, matched_counts)
 
-        if len(Wordle.words) == 0:
-            st.markdown("no match")
-        elif len(Wordle.words) == 1:
-            break
-        if guess in Wordle.words:
-            del Wordle.words[Wordle.words.index(guess)]
-    st.header('The word is '+ str(Wordle.words[0]) +', found in ' + str(j) +' attempts.')
+    if len(Wordle.words) == 0:
+        st.markdown("no match")
+    elif len(Wordle.words) == 1:
+        break
+    if guess in Wordle.words:
+        del Wordle.words[Wordle.words.index(guess)]
+st.header('The word is '+ str(Wordle.words[0]) +', found in ' + str(j) +' attempts.')
         
