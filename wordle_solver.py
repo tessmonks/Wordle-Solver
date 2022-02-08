@@ -146,16 +146,15 @@ class Wordle:
             test_word, k = self.get_test_word() if j >= 1 else init
             j += 1
             rule_codes = self.get_rules_input(test_word)
-            if rule_codes:
-                rules, matched_counts = self.parse_rule_codes(rule_codes,test_word)
-                self.apply_rules(rules, matched_counts)
+            rules, matched_counts = self.parse_rule_codes(rule_codes,test_word)
+            self.apply_rules(rules, matched_counts)
 
-                if len(self.words) == 0:
-                    st.write('error')
-                elif len(self.words) == 1:
-                    break
-                if test_word in self.words:
-                    del self.words[self.words.index(test_word)]
+            if len(self.words) == 0:
+                st.write('error')
+            elif len(self.words) == 1: 
+                break
+            if test_word in self.words:
+                del self.words[self.words.index(test_word)]
         st.write('the final word is: ' + str(test_word) +', found in ' + str(j)+' attempts.')
 wordle = Wordle()
 wordle.interactive()
