@@ -84,7 +84,7 @@ class Wordle:
     def test_word(self, guess):
         
         target = list(self.target_word)
-        matched_letters = {}
+        matched_counts = {}
         rules = [None] * self.word_length
         
         # check the letters in guess against the target word
