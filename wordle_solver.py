@@ -136,23 +136,21 @@ class Wordle:
     def rules_input(self, guess):
         return input(f'{guess}')
     
-    def play(self):
-        j = 0
-        init = first_word, self.words.index(first_word)
-        while len(self.words) > 1:
-            guess, k = self.choose_guess() if j else init
-            j += 1
-            rule_codes = self.rules_input(guess)
-            rules, matched_counts = self.rules(rule_codes,guess)
-            self.apply_rules(rules, matched_counts)
+j = 0
+init = first_word, Wordle.words.index(first_word)
+    while len(Wordle.words) > 1:
+        guess, k = Wordle.choose_guess() if j else init
+        j += 1
+        rule_codes = Wordle.rules_input(guess)
+        rules, matched_counts = Wordle.rules(rule_codes,guess)
+        Wordle.apply_rules(rules, matched_counts)
 
-            if len(self.words) == 0:
-                sys.exit('no match')
-            elif len(self.words) == 1:
-                break
-            if guess in self.words:
-                del self.words[self.words.index(guess)]
-        st.header('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
+        if len(Wordle.words) == 0:
+            st.markdown("no match")
+        elif len(Wordle.words) == 1:
+            break
+        if guess in Wordle.words:
+            del Wordle.words[Wordle.words.index(guess)]
+    st.header('The word is '+ str(Wordle.words[0]) +', found in ' + str(j) +' attempts.')
         
-wordle = Wordle()
-wordle.play()
+
