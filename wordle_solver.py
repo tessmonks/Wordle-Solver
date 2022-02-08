@@ -143,7 +143,7 @@ class Wordle:
             self.apply_rules(rules, matched_counts)
 
             if len(self.words) == 0:
-                sys.exit('no match')
+                st.markdown('no match')
             elif len(self.words) == 1:
                 break
             if guess in self.words:
