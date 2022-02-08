@@ -152,7 +152,7 @@ class Wordle:
                 break
             if guess in self.words:
                 del self.words[self.words.index(guess)]
-        st.header('The word is '+ str(self.words[0]) +', found in '+str(j)'+' attempts.')
+        st.header('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
         
 wordle = Wordle()
 wordle.play()
