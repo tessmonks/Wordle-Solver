@@ -139,23 +139,30 @@ class Wordle:
     def play(self):
         j = 0
         init = first_word, self.words.index(first_word)
-        while len(self.words) > 1:
-
-            guess, k = self.choose_guess() if j > 1 else init
-            j += 1
+        if j == 0:
+            guess, k = init
             rule_codes = self.rules_input(guess)
-            rules, matched_counts = self.parse_rules(rule_codes,guess)
-            self.apply_rules(rules, matched_counts)
+            if rule_codes != None:
+                rules, matched_counts = self.parse_rules(rule_codes,guess)
+                self.apply_rules(rules, matched_counts)
+        else:        
+            while len(self.words) > 1:
+
+                guess, k = self.choose_guess() if j > 1 
+                j += 1
+                rule_codes = self.rules_input(guess)
+                rules, matched_counts = self.parse_rules(rule_codes,guess)
+                self.apply_rules(rules, matched_counts)
         
         
-        if len(self.words) == 0:
-            st.markdown('no match')
-        elif len(self.words) == 1:
+                if len(self.words) == 0:
+                    st.markdown('no match')
+                elif len(self.words) == 1:
+                    break
+                if guess in self.words:
+                    del self.words[self.words.index(guess)]
+                    st.markdown(str(guess))
             st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
-        if guess in self.words:
-            del self.words[self.words.index(guess)]
-            st.markdown(str(guess))
-        st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
 wordle = Wordle()
 wordle.play()
         
