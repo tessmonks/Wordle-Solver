@@ -1,4 +1,0 @@
-channles:
-  - conda-forge
-dependencies:
-  - nltk==3.6.7
