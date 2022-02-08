@@ -141,7 +141,7 @@ class Wordle:
 
     def interactive(self):
         j = 0
-        init = FIRST_WORD, self.words.index(FIRST_WORD)
+        init = first_word, self.words.index(first_word)
         while len(self.words) > 1:
             test_word, k = self.get_test_word() if j else init
             j += 1
