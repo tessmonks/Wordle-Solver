@@ -1,6 +1,4 @@
 import random
-from collections import defaultdict
-import re
 import streamlit as st
 
 
@@ -11,35 +9,7 @@ wordlist_name = 'common-5-words.txt'
 with open(wordlist_name) as fi:
     
     words_list = [word.strip() for word in fi]
-# filter for list of words that do not repeat letters t have max likelihood
-rgx = re.compile(r'.*(.).*\1.*') 
-def filter_words(word_list):
-    for word in word_list:
-        if rgx.match(word) is None:
-            yield word
 
-words_list = list(filter_words(words_list))
-
-word_string = ''.join(words_list)
-alpha = 'abcdefghijklmnopqrstuvwxyz'
-counts = {}
-
-import random
-from collections import defaultdict
-import re
-
-wordlist_name = 'common-5-words.txt'
-with open(wordlist_name) as fi:
-    
-    words_list = [word.strip() for word in fi]
-# filter for list of words that do not repeat letters t have max likelihood
-rgx = re.compile(r'.*(.).*\1.*') 
-def filter_words(word_list):
-    for word in word_list:
-        if rgx.match(word) is None:
-            yield word
-
-words_list = list(filter_words(words_list))
 
 word_string = ''.join(words_list)
 alpha = 'abcdefghijklmnopqrstuvwxyz'
