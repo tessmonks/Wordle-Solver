@@ -1,4 +1,4 @@
-import streamline as st
+import streamlit as st
 import random
 from collections import defaultdict
 from nltk.corpus import words
