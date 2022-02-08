@@ -118,7 +118,7 @@ class Wordle:
 
     def parse_rule_codes(self, rule_codes, test_word):
         rules = []
-        matched_counts = defaultdict(int)
+        matched_counts = {}
         for i, letter in enumerate(test_word):
             rules.append(RuleCls[rule_codes[i]](letter, i))
             if rule_codes[i] in '+=':
