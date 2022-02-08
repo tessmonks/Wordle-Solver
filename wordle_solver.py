@@ -135,37 +135,25 @@ class Wordle:
         return self.words[k], k
     
     def rules_input(self, guess):
-        rule_codes = st.text_input("Try the word: " + str(guess))
+        rule_codes = st.text_input("Input Colors for word: " + str(guess))
         return rule_codes
     
     def play(self):
         j = 0
         init = first_word, self.words.index(first_word)
-        if j == 0:
+        while len(self.words) > 1:
+            test_word, k = self.get_test_word() if j else init
             j += 1
-            guess, k = init
-            rule_codes = self.rules_input(guess)
-            if rule_codes is None:
-                st.markdown('no rules')
-                rules, matched_counts = self.parse_rules(rule_codes,guess)
-                self.apply_rules(rules, matched_counts)
-        else:        
-            while len(self.words) > 1:
+            rule_codes = self.rules_input(test_word)
+            rules, matched_counts = self.parse_rules(rule_codes,test_word)
+            self.apply_rules(rules, matched_counts)
 
-                guess, k = self.choose_guess()
-                j += 1
-                rule_codes = self.rules_input(guess)
-                rules, matched_counts = self.parse_rules(rule_codes,guess)
-                self.apply_rules(rules, matched_counts)
-        
-        
-                if len(self.words) == 0:
-                    st.markdown('no match')
-                elif len(self.words) == 1:
-                    break
-                if guess in self.words:
-                    del self.words[self.words.index(guess)]
-                    st.markdown(str(guess))
+            if len(self.words) == 0:
+                st.markdown('error')
+            elif len(self.words) == 1:
+                break
+            if test_word in self.words:
+                del self.words[self.words.index(test_word)]
             st.markdown('The word is '+ str(self.words[0]) +', found in ' + str(j) +' attempts.')
 wordle = Wordle()
 wordle.play()
