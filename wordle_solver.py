@@ -3,7 +3,7 @@ import random
 from collections import defaultdict
 from nltk.corpus import words
 
-
+st.header('Wordle Solver')
 words_list = [word.lower() for word in words.words() if len(word) == 5]
 
 word_string = ''.join(words_list)
