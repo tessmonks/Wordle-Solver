@@ -32,7 +32,6 @@ overall_probs = sorted(word_probs, key = lambda x: x[1], reverse = True)
 # randomly choose first word from 50 most probable
 first_word = random.choice(overall_probs[:50])[0]
 
-st.markdown(str(first_word))
 
 class Guess:
     def __init__(self, letter, i=None):
@@ -134,8 +133,8 @@ class Wordle:
         return self.words[k], k
     
     def rules_input(self, guess):
-        guess = st.text_input("Input Colors")
-        return guess 
+        rule_codes = st.text_input("Try the word: " + str(guess))
+        return rule_codes
     
     def play(self):
         j = 0
